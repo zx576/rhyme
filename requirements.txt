@@ -1,0 +1,3 @@
+jieba
+peewee
+xpinyin
