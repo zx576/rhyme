@@ -86,5 +86,5 @@ if __name__ == '__main__':
     # ul.get_most_common(10)
     # ul.get_total_num_lrc()
     # ul.deduplicate()
-    # ul.save_words_freq('words-frequency-v.txt', 10, 'words', 'v')
+    ul.save_words_freq('words-frequency-n.txt', 10, 'words', 'n')
     # ul.open_txt()
