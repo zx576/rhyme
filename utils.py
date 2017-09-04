@@ -4,7 +4,7 @@
 # dexcription
 # 一些调试阶段的工具函数
 
-from models import Lrc, Word
+from models import Lrc, Word, Rhyme
 import jieba.posseg as pseg
 import re
 import os
@@ -33,7 +33,7 @@ class Utils:
             for word, flag in words:
                 # 筛选某类词性词汇
                 if flag == f and word not in self.exclude:
-                    res.append([i.word, i.re3])
+                    res.append([u'{}'.format(i.word), i.re3])
             #
         res.sort(key=lambda x:x[1], reverse=True)
         # for i in res:
@@ -49,8 +49,9 @@ class Utils:
         print(dct)
         # dct = dict(tuple(res))
         with open(dir, 'w',)as f:
-            f.write(json.dumps(dct))
-
+            for k,v in res:
+                f.write('{0} : {1}'.format(k,v))
+                f.write('\n')
 
     # 查看兄弟出现次数
     # 验证数据有效性
@@ -78,6 +79,26 @@ class Utils:
                     j.re1 = 'd'
                     j.save()
 
+    def optword(self):
+        query = Word.select()
+        for i in query:
+            name = i.word
+            words = Word.select().where(Word.word == name)
+            if len(words) > 1:
+                for j in words[1:]:
+                    j.re2 = 'd'
+                    j.save()
+
+
+    def statistic(self):
+
+        query_l = Lrc.select()
+        print(len(query_l))
+        query_w = Word.select().where(Word.word != 'd')
+        print(len(query_w))
+        query_r = Rhyme.select()
+        print(len(query_r))
+
 
 if __name__ == '__main__':
     ul = Utils()
@@ -86,5 +107,7 @@ if __name__ == '__main__':
     # ul.get_most_common(10)
     # ul.get_total_num_lrc()
     # ul.deduplicate()
-    ul.save_words_freq('words-frequency-n.txt', 10, 'words', 'n')
+    # ul.save_words_freq('words-frequency-v.txt', 10, 'words', 'v')
     # ul.open_txt()
+    # ul.optword()
+    ul.statistic()

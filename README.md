@@ -1,5 +1,30 @@
 ## 分析说唱歌手歌词,提取押韵词汇
 
+#### 结果
+
+本项目一共分析了 459 首不重复的歌曲，歌手与网易歌单为：
+
+红花会: 799977314
+PGone : 447516565
+VaVa : 808488091
+艾福杰尼: 510860563
+BooM黄旭: 714593343
+Bridge: 639741735
+GAI爷: 557229147
+TizzyT: 462399965
+JonyJ: 49527655
+小青龙:808976784
+辉子: 714778058
+孙八一:776141176
+谢帝: 55433749
+马思维: 155059572
+Mc光光:126482980
+满舒克:110228333
+
+分析过后共产生了 21206 个词汇
+以及 2845 个韵脚
+
+
 #### 文件说明已经项目运行流程
 
 settings.py
@@ -34,9 +59,12 @@ extract.py
 
 根据韵脚提取押韵词汇,集合到一个 txt 文件中
 
-utils.py 
+utils.py
 
 调试阶段使用的工具函数
+
+rhymewords-2.txt/ rhymewords-3.txt 分别包含双押以及三押以上词汇
+words-frequency-n.txt / words-frequency-v.txt 分别为名词以及动词词频排行榜
 
 #### 自定义运行流程
 
@@ -106,7 +134,7 @@ class Lrc(Model):
     lrc = TextField()
     class Meta:
         database = db
-        
+
 db.connect()
 db.create_tables([Lrc])
 
@@ -153,8 +181,3 @@ xpinyin 是一个中文文字拼音转换库,使用方法如下
 'shang-hai'
 
 ```
-
-
-
-
-
